@@ -13,7 +13,7 @@ while 1:
     try:
         needed=int(input('\nEnter user:\n->'))
     except:
-        print('Только номер')
+        print('Только номер!')
         continue
     try:
         file=open('list.txt','r')
@@ -26,9 +26,13 @@ while 1:
     except:
         print('#404')
 
-    session=vk.AuthSession(app_id, login, password, scope='friends, messages')
-    vk_api=vk.API(session, v='5.87', lang='ru')
-
+    try:
+        session=vk.AuthSession(app_id, login, password, scope='friends, messages')
+        vk_api=vk.API(session, v='5.87', lang='ru')
+    except:
+        print('Данные неверны или приложение устарело!')
+        continue
+        
     ids_list=[]
 
     def sent(your,message):
