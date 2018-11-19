@@ -9,6 +9,21 @@ while 1:
     app_id='6755953'
     login='89118236470'
     password='R1HWO62FMyPNftWmiCDnhxd6wb38skCeqebreTNf'
+    
+    try:
+        needed=int(input('Enter user:\n->'))
+    except:
+        print('Только номер')
+        continue
+
+    file=open('list.txt','r')
+
+    with file as fp:
+        for i, line in enumerate(fp):
+            if i == needed-1:
+                login=line.split(' ')[0]
+                password=line.split(' ')[1]
+                app_id=line.split(' ')[2]
 
     session=vk.AuthSession(app_id, login, password, scope='friends, messages')
     vk_api=vk.API(session, v='5.87', lang='ru')
