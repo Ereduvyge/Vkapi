@@ -1,7 +1,6 @@
 #-*-coding:utf8;-*-
 
 import vk
-import unicodedata
 import re
 import pyperclip
 import time
