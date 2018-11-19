@@ -15,6 +15,7 @@ while 1:
     except:
         print('Только номер!')
         continue
+        
     try:
         file=open('list.txt','r')
         with file as fp:
@@ -25,6 +26,7 @@ while 1:
                     app_id=line.split(' ')[2]
     except:
         print('#404')
+        continue
 
     try:
         session=vk.AuthSession(app_id, login, password, scope='friends, messages')
