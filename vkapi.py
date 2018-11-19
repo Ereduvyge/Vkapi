@@ -6,24 +6,25 @@ import pyperclip
 import time
 
 while 1:
-    app_id='6755953'
-    login='89118236470'
-    password='R1HWO62FMyPNftWmiCDnhxd6wb38skCeqebreTNf'
-    
+    app_id=''
+    login=''
+    password=''
+
     try:
-        needed=int(input('Enter user:\n->'))
+        needed=int(input('\nEnter user:\n->'))
     except:
         print('Только номер')
         continue
-
-    file=open('list.txt','r')
-
-    with file as fp:
-        for i, line in enumerate(fp):
-            if i == needed-1:
-                login=line.split(' ')[0]
-                password=line.split(' ')[1]
-                app_id=line.split(' ')[2]
+    try:
+        file=open('list.txt','r')
+        with file as fp:
+            for i, line in enumerate(fp):
+                if i == needed:
+                    login=line.split(' ')[0]
+                    password=line.split(' ')[1]
+                    app_id=line.split(' ')[2]
+    except:
+        print('#404')
 
     session=vk.AuthSession(app_id, login, password, scope='friends, messages')
     vk_api=vk.API(session, v='5.87', lang='ru')
@@ -62,9 +63,9 @@ while 1:
                 return True
             except:
                 return False
-                
-                
-    while len(ids_list)<3:
+
+
+    while len(ids_list)<2:
         hasdom=0
         if re.match(r'^http',pyperclip.paste()):
             yourLove=pyperclip.paste()
@@ -78,6 +79,8 @@ while 1:
                 if check(yourLove,hasdom)==True:
                     print(yourLove)
                     ids_list.append(yourLove)
+                    if len(ids_list)<21:
+                        print('Добавь еще %d ссылок' % (21-len(ids_list)))
                 else:
                     time.sleep(2)
             else:
@@ -90,9 +93,11 @@ while 1:
 
     for love in ids_list:
         loh=vk_api.users.get(user_ids=love)[0]
-        #name = u''.join(loh['first_name']).encode('utf-8').strip()
-        messageTo='%s, '% loh['first_name'] + messageTo
-        print(messageTo)
-        sent(love,messageTo)
+        try:
+            messageUp='%s, '% loh['first_name'] + messageTo
+        except:
+            name= u''.join(loh['first_name']).encode('utf-8').strip()
+            messageUp='%s, ' % name + messageTo
+        sent(love,messageUp)
 
 exit=input()
