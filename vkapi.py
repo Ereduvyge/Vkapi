@@ -65,7 +65,7 @@ while 1:
                 return False
 
 
-    while len(ids_list)<2:
+    while len(ids_list)<21:
         hasdom=0
         if re.match(r'^http',pyperclip.paste()):
             yourLove=pyperclip.paste()
